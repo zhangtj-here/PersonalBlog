@@ -8,9 +8,17 @@ let everyDay = new Vue({
             return this.content;
         }
     },
-    create: function() {
+    created: function() {
         //请求数据，给content赋值
-        this.content = '123';
+        axios({
+            method: "get",
+            url: "/queryEveryDay"
+        }).then(function (resp) {
+            everyDay.content = resp.data.data[0].content;
+        }).catch(function (error) {
+            console.log(error);
+        })
+
     }
 })
 
@@ -86,7 +94,7 @@ let articleList = new Vue({
     computed: {
 
     },
-    create: function() {
+    created: function() {
 
     }
 })

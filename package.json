@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/zhangtj-here/PersonalBlog#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "moment": "^2.25.3",
+    "mysql": "^2.18.1"
   }
 }
