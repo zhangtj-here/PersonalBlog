@@ -5,6 +5,8 @@
     <title>个人博客</title>
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/index.css">
+<!--    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>-->
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
 </head>
 <body>
     <header class="header">
@@ -24,91 +26,39 @@
     </header>
     <div class="content">
         <div class="content_left">
-            <div class="every_day">
+            <div class="every_day" id="every_day">
                 <span>每日一句</span>
-                <p>fawefewfewggfef </p>
+                <p v-html="getContent">fawefewfewggfef </p>
                 <p>ajfiweafji <blog style="float: right">-----aafawefio</blog></p>
             </div>
-            <div class="article_list">
-                <div class="article">
-                    <a href="" class="article_title">使用Nginx反向代理部署laravel和history模式的Vue项目[更新]</a>
-                    <p class="article_content">
-                        [2019.12.2 更新] nginx.conf里要加上对laravel的静态文件目录的转发(这里假设我的静态文件在public/static下)、修改vue的nginx配置。我们以在我本地的开发环境为例，windows7+nginx+Vue+Laravel5，假设我想使用的域名是zh30.com。想达成的效果：我们想直接访问时使用Vue开发的单页面应用index.html，做为我们的前台交互，且在Vue中使用history路由模式。后台和接口使用laravel框架进行...
-                    </p>
-                    <div class="article_foot">发布于2019-12-06 |  浏览(6,117) | Tags：laravel</div>
-                </div>
-                <div class="article">
-                    <a href="" class="article_title">使用Nginx反向代理部署laravel和history模式的Vue项目[更新]</a>
-                    <p class="article_content">
-                        [2019.12.2 更新] nginx.conf里要加上对laravel的静态文件目录的转发(这里假设我的静态文件在public/static下)、修改vue的nginx配置。我们以在我本地的开发环境为例，windows7+nginx+Vue+Laravel5，假设我想使用的域名是zh30.com。想达成的效果：我们想直接访问时使用Vue开发的单页面应用index.html，做为我们的前台交互，且在Vue中使用history路由模式。后台和接口使用laravel框架进行...
-                    </p>
-                    <div class="article_foot">发布于2019-12-06 |  浏览(6,117) | Tags：laravel</div>
+            <div class="article_list" id="article_list">
+                <div class="article" v-for="article in articleList">
+                    <a :href="article.link" class="article_title" v-text="article.title"></a>
+                    <p class="article_content">{{article.content}}</p>
+                    <div class="article_foot">发布于{{article.date}} |  浏览({{article.views}}) | Tags：{{article.tags}}</div>
                 </div>
             </div>
         </div>
         <div class="content_right">
-            <div class="right_module">
+            <div class="right_module" id="radom_tags">
                 <div>随机标签云</div>
-                <a href="">afa</a>
-                <a href="">BBB</a>
-                <a href="">pcv</a>
-                <a href="">pptv</a>
+                <a href="" v-for="tag in tags" :style="{color: randomColor(), fontSize: randomSize()}">{{tag}}</a>
             </div>
-            <div class="right_module">
+            <div class="right_module"id="new_hot">
                 <div>最近热门</div>
                 <ul>
-                    <li><a href="">使用码云git的webhook实现生产环境代</a></li>
-                    <li><a href="">使用码云git的webhook实现生产环境代</a></li>
-                    <li><a href="">使用码云git的webhook实现生产环境代</a></li>
-                    <li><a href="">使用码云git的webhook实现生产环境代</a></li>
-                    <li><a href="">使用码云git的webhook实现生产环境代</a></li>
-                    <li><a href="">使用码云git的webhook实现生产环境代</a></li>
+                    <li v-for="temp in titleList"><a :href="temp.link">{{temp.title}}</a></li>
                 </ul>
             </div>
-            <div class="right_module">
+            <div class="right_module" id="new_comments">
                 <div>最新评论</div>
                 <ul>
-                    <li>
+                    <li v-for="item in commentList">
                         <div>
-                            <span>慕容云海</span>
-                            <span class="pull_right">[2天前]</span>
+                            <span>{{item.name}}</span>
+                            <span class="pull_right">[{{item.date}}]</span>
                         </div>
-                        <p>博客不错，大佬有空可以回访一下htt</p>
-                    </li>
-                    <li>
-                        <div>
-                            <span>慕容云海</span>
-                            <span class="pull_right">[2天前]</span>
-                        </div>
-                        <p>博客不错，大佬有空可以回访一下htt</p>
-                    </li>
-                    <li>
-                        <div>
-                            <span>慕容云海</span>
-                            <span class="pull_right">[2天前]</span>
-                        </div>
-                        <p>博客不错，大佬有空可以回访一下htt</p>
-                    </li>
-                    <li>
-                        <div>
-                            <span>慕容云海</span>
-                            <span class="pull_right">[2天前]</span>
-                        </div>
-                        <p>博客不错，大佬有空可以回访一下htt</p>
-                    </li>
-                    <li>
-                        <div>
-                            <span>慕容云海</span>
-                            <span class="pull_right">[2天前]</span>
-                        </div>
-                        <p>博客不错，大佬有空可以回访一下htt</p>
-                    </li>
-                    <li>
-                        <div>
-                            <span>慕容云海</span>
-                            <span class="pull_right">[2天前]</span>
-                        </div>
-                        <p>博客不错，大佬有空可以回访一下htt</p>
+                        <p>{{item.comment}}</p>
                     </li>
                 </ul>
             </div>
@@ -134,5 +84,7 @@
         </ul>
         <p>Copyright © 2010-2020 某某个人博客 All rights reserved. 由免费开源的WordPress强力驱动. 鲁ICP备14017955号站长统计</p>
     </footer>
+    <script src="./js/index.js"></script>
+    <script src="./js/base.js"></script>
 </body>
 </html>
