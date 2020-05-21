@@ -2,7 +2,7 @@ let timeUtil = require("../util/TimeUtil");
 let respUtil = require("../util/RespUtil");
 let blogDao = require("../dao/BlogDao");
 let tagsDao = require("../dao/TagsDao");
-let tagBlogMappingDao = require("../dao/TagBlogMapping");
+let tagBlogMappingDao = require("../dao/TagBlogMappingDao");
 let url = require("url");
 
 let path = new Map();
