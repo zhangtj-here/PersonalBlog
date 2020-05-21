@@ -1,7 +1,7 @@
 const moment = require("moment");
 let timeUtil = require("../util/TimeUtil");
 let respUtil = require("../util/RespUtil");
-let everyDayDao = require("../dao/everyDaydao");
+let everyDayDao = require("../dao/EveryDayDao1");
 
 
 let path = new Map();

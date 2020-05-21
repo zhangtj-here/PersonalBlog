@@ -1,9 +1,9 @@
-let dbutil = require("./DButil");
+let dbutil = require("../dao/DButil");
 
-function insertEveryDay(content, ctime, success) {
+function insertTagBlogMapping(tagId, blogId, ctime, utime, success) {
 
-    let insertSql = "insert into every_day (content, c_time) values (?, ?)";
-    let params = [content, ctime];
+    let insertSql = "insert into tag_blog_mapping (`tag_id`, `blog_id`, `c_time`, `u_time`) values (?, ?, ?, ?)";
+    let params = [tagId, blogId, ctime, utime];
 
     let connection = dbutil.createConnection();
     connection.connect();
@@ -17,10 +17,10 @@ function insertEveryDay(content, ctime, success) {
     connection.end();
 }
 
-function queryEveryDay(success) {
+function querytags(tag, success) {
 
-    let querySql = "select * from every_day order by id desc limit 1";
-    let params = [];
+    let querySql = "select * from tags where tag = ?";
+    let params = [tag];
 
     let connection = dbutil.createConnection();
     connection.connect();
@@ -34,5 +34,5 @@ function queryEveryDay(success) {
     connection.end();
 }
 
-module.exports.insertEveryDay = insertEveryDay;
-module.exports.queryEveryDay = queryEveryDay;
+module.exports.insertTagBlogMapping = insertTagBlogMapping;
+module.exports.querytags = querytags;

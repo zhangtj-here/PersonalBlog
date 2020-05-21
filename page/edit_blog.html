@@ -20,10 +20,25 @@
     <script src="./bootstrap-wysiwyg-master/bootstrap-wysiwyg.js"></script>
     <script>
       function submit() {
-        alert("提交");
+        // alert("提交");
         let content = $("#editor").html();
-        let title = $("#title").html();
-        let tags = $("#tags").html();
+        let title = $("#title").val();
+        let tags = $("#tags").val();
+        $.ajax({
+          url: "/editBlog?title=" + title + "&tags=" + tags,
+          method: "POST",
+          data: content,
+          success: function(res) {
+            let result = JSON.parse(res);
+            alert(result.msg);
+            $("#editor").html("");
+            $("#title").val("");
+            $("#tags").val("");
+          },
+          error: function(error) {
+            console.log(error);
+          }
+        })
       }
     </script>
     <style>
